@@ -83,7 +83,6 @@ namespace WikiApp.ViewModels
                 cache.SetData(Text);
                 DatasListView.Height = 0;
                 WikiModels = await WikipediaService.GetResult(Text);
-
             });
             TextChangedCommand = new RelayCommand((o) =>
             {
@@ -116,6 +115,8 @@ namespace WikiApp.ViewModels
                 t.FontWeight = FontWeight.FromOpenTypeWeight(20);
                 t.Text = wikimodel.Title + "\n" + wikimodel.Content;
                 MyStackPanel.Children.Add(t);
+                FileService.WriteToFile(wikimodel.PageId);
+                
             });
         }
     }

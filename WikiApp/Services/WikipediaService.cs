@@ -36,6 +36,12 @@ namespace WikiApp.Services
                     Title = title,
                     Content = content
                 };
+
+                var list = FileService.ReadAllDataAsListFromFile();
+                if (list.Contains(pageId)){
+                    wikiItem.Color = "Purple";
+                }
+
                 models.Add(wikiItem);
             }
             return models;

@@ -52,7 +52,7 @@
                             <StackPanel>
                                 <TextBlock FontSize="20"
                                        FontWeight="Medium"
-                                       Foreground="Blue"
+                                       Foreground="{Binding Color}"
                                        FontStyle="Oblique"                                     
                                        >
                                     <TextBlock.InputBindings>

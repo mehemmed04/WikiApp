@@ -66,6 +66,7 @@
     <Compile Include="ProxyPattern\CacheProxy.cs" />
     <Compile Include="ProxyPattern\FakeRepo.cs" />
     <Compile Include="ProxyPattern\ICache.cs" />
+    <Compile Include="Services\FileService.cs" />
     <Compile Include="Services\WikipediaService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Page Include="Views\MainWindow.xaml">
