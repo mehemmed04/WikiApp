@@ -21,10 +21,11 @@
                     FontWeight="Black"
                     Command="{Binding SearchCommand}">Search</Button>
         </StackPanel>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal"
+                    Name="MyStackPanel">
             <ListView
                 Margin="20,0"
-                x:Name="ListView1"
+                Name="ListView1"
                 BorderThickness="0"
                 Height="330"
                 SelectedItem="{Binding SelectedWiki,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
@@ -41,8 +42,7 @@
                                     <MouseBinding 
                                                   Command="{Binding ElementName=ListView1, Path=DataContext.GetDataCommand}" 
                                                   CommandParameter="{Binding}" 
-                                         
-                                                  MouseAction="LeftClick" />
+                                                   MouseAction="LeftClick" />
                                 </TextBlock.InputBindings>
                                    <Underline>
                                        <Run  Text="{Binding Title}"/>
