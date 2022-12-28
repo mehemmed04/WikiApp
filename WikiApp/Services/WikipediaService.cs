@@ -29,7 +29,7 @@ namespace WikiApp.Services
             {
                 var pageId = (item.Value.pageid).ToString();
                 var title = (item.Value.title).ToString();
-                var content = await GetData(pageId);
+                string content = await GetData(pageId);
                 var wikiItem = new WikiModel
                 {
                     PageId = pageId,
