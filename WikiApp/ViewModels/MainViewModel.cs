@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using WikiApp.Commands;
 using WikiApp.Models;
 using WikiApp.ProxyPattern;
@@ -78,11 +79,27 @@ namespace WikiApp.ViewModels
         {
             SearchCommand = new RelayCommand(async (o) =>
             {
-                MyStackPanel.Children.Clear();
-                MyStackPanel.Children.Add(MyListView);
-                cache.SetData(Text);
-                DatasListView.Height = 0;
-                WikiModels = await WikipediaService.GetResult(Text);
+                try
+                {
+                    MyStackPanel.Children.Clear();
+                    MyStackPanel.Children.Add(MyListView);
+                    cache.SetData(Text);
+                    DatasListView.Height = 0;
+                    WikiModels = await WikipediaService.GetResult(Text);
+                }
+                catch (Exception)
+                {
+                    TextBlock t = new TextBlock
+                    {
+                        Foreground = Brushes.Red,
+                        FontSize = 30,
+                        Text = $"There is not any data for - {Text} ",
+                        FontWeight = FontWeights.Bold
+                    };
+                    MyStackPanel.Children.Clear();
+                    MyStackPanel.Children.Add(t);
+
+                }
             });
             TextChangedCommand = new RelayCommand((o) =>
             {
@@ -116,7 +133,7 @@ namespace WikiApp.ViewModels
                 t.Text = wikimodel.Title + "\n" + wikimodel.Content;
                 MyStackPanel.Children.Add(t);
                 FileService.WriteToFile(wikimodel.PageId);
-                
+
             });
         }
     }
