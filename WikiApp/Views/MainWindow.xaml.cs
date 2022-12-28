@@ -28,6 +28,7 @@ namespace WikiApp
             MainViewModel mvm = new MainViewModel();
             mvm.MyStackPanel = MyStackPanel;
             mvm.MyListView = ListView1;
+            mvm.DatasListView = DatasListView;
             DataContext = mvm;
             //Start();
         }

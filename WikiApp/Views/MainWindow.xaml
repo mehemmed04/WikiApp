@@ -3,69 +3,100 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WikiApp"
+        xmlns:local="clr-namespace:WikiApp" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <StackPanel>
+
         <StackPanel Orientation="Horizontal"
-                    Margin="20"
+                    Margin="20,20,0,20"
+
                     HorizontalAlignment="Center">
             <TextBox
                 FontSize="20"
                 FontFamily="Comic Sans MS"
-                Text="{Binding Text}"
-                Width="400"></TextBox>
+                Text="{Binding Text,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                Width="400">
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction Command="{Binding TextChangedCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+            </TextBox>
+
+
             <Button Width="100"
                     FontSize="18"
                     Margin="10,0"
                     FontWeight="Black"
                     Command="{Binding SearchCommand}">Search</Button>
         </StackPanel>
-        <StackPanel Orientation="Horizontal"
+
+        <Grid>
+
+            
+
+            <StackPanel Orientation="Horizontal"
                     Name="MyStackPanel">
-            <ListView
+                <ListView
                 Margin="20,0"
                 Name="ListView1"
                 BorderThickness="0"
                 Height="330"
                 SelectedItem="{Binding SelectedWiki,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                 ItemsSource="{Binding WikiModels,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock FontSize="20"
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock FontSize="20"
                                        FontWeight="Medium"
                                        Foreground="Blue"
                                        FontStyle="Oblique"                                     
                                        >
-                                <TextBlock.InputBindings>
-                                    <MouseBinding 
+                                    <TextBlock.InputBindings>
+                                        <MouseBinding 
                                                   Command="{Binding ElementName=ListView1, Path=DataContext.GetDataCommand}" 
                                                   CommandParameter="{Binding}" 
                                                    MouseAction="LeftClick" />
-                                </TextBlock.InputBindings>
+                                    </TextBlock.InputBindings>
                                    <Underline>
                                        <Run  Text="{Binding Title}"/>
                                    </Underline>
-                            </TextBlock>
+                                </TextBlock>
 
-                            <Viewbox Width="730">
-                                <StackPanel Orientation="Vertical" Width="400">
-                                    <TextBlock TextTrimming="CharacterEllipsis"
+                                <Viewbox Width="730">
+                                    <StackPanel Orientation="Vertical" Width="400">
+                                        <TextBlock TextTrimming="CharacterEllipsis"
                                                MaxHeight="50"
                                                FontSize="10" 
                                                TextWrapping="Wrap" 
                                                Foreground="Black"
                                                FontWeight="Light"
                                                Text="{Binding Content}" />
-                                </StackPanel>
+                                    </StackPanel>
 
-                            </Viewbox>
+                                </Viewbox>
 
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+            <ListView 
+                BorderThickness="0"
+ 
+            Width="390"   
+                      Name="DatasListView"
+                Height="0"
+                      Margin="-110,-100,0,0">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding SelectedDataChangedCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
             </ListView>
-        </StackPanel>
+        </Grid>
     </StackPanel>
 </Window>
